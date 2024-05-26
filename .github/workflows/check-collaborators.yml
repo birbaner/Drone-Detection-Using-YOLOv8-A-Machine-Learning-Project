@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
@@ -19,43 +19,45 @@ jobs:
 
       - name: Check Collaborators and Repository Privacy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # This token is provided by Actions, no need to create one
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY: ${{ github.repository }}
         run: |
-          import requests
-          import os
+          echo "from __future__ import print_function
+import requests
+import os
+import sys
 
-          # ANSI color codes
-          RED = '\033[91m'
-          GREEN = '\033[92m'
-          RESET = '\033[0m'
+# ANSI color codes
+RED = '\\033[91m'
+GREEN = '\\033[92m'
+RESET = '\\033[0m'
 
-          # List of GitHub users to check
-          users_to_check = [ 'fatemehramezanii']  # Replace with actual usernames
+# List of GitHub users to check
+users_to_check = ['fatemehramezanii']  # Replace with actual usernames
 
-          action_result = 0
+action_result = 0
 
-          token = os.getenv('GITHUB_TOKEN')
-          repo = os.getenv('REPOSITORY')
-          headers = {'Authorization': f'token {token}'}
+token = os.getenv('GITHUB_TOKEN')
+repo = os.getenv('REPOSITORY')
+headers = {'Authorization': f'token {token}'}
 
-          # Check if the repository is private
-          repo_info = requests.get(f'https://api.github.com/repos/{repo}', headers=headers).json()
-          if repo_info.get('private', False):
-              print(GREEN + "[✓] Repository is private." + RESET)
-          else:
-              print(RED + "[X] Repository is NOT private." + RESET)
-              action_result = 1
+# Check if the repository is private
+repo_info = requests.get(f'https://api.github.com/repos/{repo}', headers=headers).json()
+if repo_info.get('private', False):
+    print(GREEN + '[✓] Repository is private.' + RESET)
+else:
+    print(RED + '[X] Repository is NOT private.' + RESET)
+    action_result = 1
 
-          # Check each user
-          for user in users_to_check:
-              response = requests.get(f'https://api.github.com/repos/{repo}/collaborators/{user}', headers=headers)
-              if response.status_code == 204:
-                  print(GREEN + f"[✓] {user} is a collaborator." + RESET)
-              else:
-                  print(RED + f"[X] {user} is NOT a collaborator." + RESET)
-                  action_result = 1
+# Check each user
+for user in users_to_check:
+    response = requests.get(f'https://api.github.com/repos/{repo}/collaborators/{user}', headers=headers)
+    if response.status_code == 204:
+        print(GREEN + f'[✓] {user} is a collaborator.' + RESET)
+    else:
+        print(RED + f'[X] {user} is NOT a collaborator.' + RESET)
+        action_result = 1
 
-          exit(action_result)
-
-        shell: python
+sys.exit(action_result)
+" > script.py
+          python script.py
