@@ -54,28 +54,34 @@ The correlation matrix of the reconstructed data shows some differences compared
 Problem 3: Stochastic Gradient Descent (30 points)
 In class we covered the baseline stochastic gradient descent. Using the linear regression example from the class notes, develop from scratch the baseline SGD algorithm. :
 
-Clearly state the hyper-parameters you used and present the loss vs epoch plot that demonstrates the convergence of the algorithm.
-Final Training Loss: 0.15482186564672237
-Final Validation Loss: 0.1471253637667969
+Note:
+the sinusoidal function is used for visualization purposes only. It plots the original sinusoidal function, along with the fitted polynomial curve to compare how well the polynomial regression model approximates the sinusoidal function.
 
+While the model itself is trained using polynomial features and SGD for polynomial regression, it's helpful to visualize the original sinusoidal function alongside the fitted polynomial curve to understand how well the model captures the underlying pattern in the data. This comparison allows for an intuitive assessment of the model's performance in approximating the original function.
+SGD with validation set
+Stochastic Gradient Descent (SGD) with Validation Set for Linear Regression it uses stochastic gradient descent for training a linear regression model and includes a validation set for monitoring model performance during training.
+Final parameters: [ 0.87718563 -1.35291406 -0.87747087 -1.58392561  1.76078649  0.74242553]
+Final Loss on Training Data: 0.09644533618152092
+Final Loss on Testing Data: 0.1418505636242852
 Summary from the output
-Throughout training, both the training and validation losses decrease gradually, indicating that the model is effectively learning the underlying patterns in the data. However, there is a noticeable distinction between the two curves: while the training loss decreases consistently, the validation loss shows a slightly longer tail, indicating that the model's performance on unseen data is not as optimized as its performance on the training set.
+The two plots illustrate the performance and convergence of the Stochastic Gradient Descent (SGD) algorithm for polynomial regression up to degree 5. The first plot, showing training and validation loss versus epochs, indicates a successful learning process where both losses decrease steadily over time, suggesting the model is fitting the data well. The final training loss is approximately 0.0964, and the validation loss is around 0.1419, indicating a reasonable fit with minor overfitting.
 
-Nonetheless, the final training and validation losses, 0.155 and 0.147 respectively, are relatively close, suggesting that the model's generalization performance is reasonable. The final learned parameters, approximately [0.329, -0.922], represent the coefficients of the linear regression model, indicating the intercept and slope of the fitted line.
+The second plot visualizes the fitted polynomial curve against the training data and the original sinusoidal function. The fitted polynomial curve not too closely follows the true sinusoidal pattern, but it could capture some the underlying trend despite the noise in the training data. Although polynomial regression can capture non-linear patterns, it might not perfectly mimic a smooth sinusoidal curve, because our synthetic data is noisy.( includes normally distributed noise with a standard deviation of 0.25.)
+
+The final model parameters reflect the coefficients of the polynomial terms, demonstrating the model's ability to generalize the sinusoidal relationship within the given data range.
+
 
 Problem 4: SGD Enhancements (30 points)
 In this exercise you will implement some enhancements to the implementation of Problem 3 (the linear regression problem) that can improve the convergence speed of the algorithm. Implement from scratch the following enhancements and compare the convergence speed of each algorithm to the baseline SGD algorithm
 
 Momentum (15 points) Adam (15 points) Clearly state the hyperparameters you used and present the loss vs epoch plot that demonstrates the convergence of each algorithm and compared to the baseline SGD algorithm. You can include all plots in the same figure.
-
 Comparison of Optimization Algorithm Convergence: SGD vs. Momentum vs. Adam---Train Loss
-Final Loss for SGD: 0.17871526846096164
-Final Loss for Adam: 0.17387841888950195
-Final Loss for Momentum: 0.17815035757644676
+Final Test Loss Values:
+SGD: 0.17713690172309549
+Momentum: 0.17687183271298335
+Adam: 0.12093600144525002
 
 Interpretation from Loss Curves: Adam, Momemtum, Sgd
-The final losses for the three optimizers are as follows: SGD - 0.1787, Adam - 0.1739, and Momentum - 0.1782. Adam achieved the lowest final loss among the three, indicating its superior performance in minimizing the loss function. Momentum and SGD had slightly higher final losses, with Momentum being marginally better than SGD.
-
-Examining the training loss plot, we observe that initially, all three optimizers show a rapid decrease in loss, indicating effective learning. However, as training progresses, the curves start to plateau, with Adam maintaining a consistently lower loss compared to the other two. Interestingly, the SGD and Momentum curves indeed align closely, suggesting that Momentum, by considering past gradients during parameter updates, helps SGD (Stochastic Gradient Descent) behave more like advanced optimizers such as Adam. This alignment between the SGD and Momentum curves suggests that Momentum brings some of the benefits of more sophisticated optimization techniques to basic SGD.
+The loss curves for the SGD, Momentum, and Adam optimizers reveal distinct performance differences in polynomial regression tasks. Adam outperforms both SGD and Momentum, as evidenced by its rapid decline in both training and test loss, stabilizing at a significantly lower final test loss of 0.1209. This superior performance is due to Adam's adaptive learning rate mechanism and bias correction terms, which enable faster and more stable convergence. Momentum also shows improvement over vanilla SGD by incorporating a momentum term, resulting in a more rapid and consistent decline in loss, with a final test loss of 0.1769. In contrast, SGD has the slowest convergence and the highest final test loss of 0.1771, reflecting its susceptibility to noise in gradient estimates and simpler update rule.
 
 Analyzing the test loss plot, we notice noise in all three curves, indicating fluctuations in the model's performance on unseen data during training. However, Adam consistently maintains the lowest test loss throughout, suggesting better generalization compared to SGD and Momentum. While Momentum exhibits slightly better performance than SGD.
