@@ -1,0 +1,6 @@
+Flask==2.0.2  # Example: if using Flask for web application framework
+SQLAlchemy==1.4.26  # Example: if using SQLAlchemy for database ORM
+psycopg2-binary==2.9.1  # Example: if using PostgreSQL with psycopg2 driver
+numpy==1.21.0  # Example: if using numpy for numerical operations
+Pillow==8.3.1  # Example: if using Pillow for image processing
+Werkzeug==2.0.2
