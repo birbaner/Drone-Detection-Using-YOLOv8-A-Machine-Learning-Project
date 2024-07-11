@@ -11,3 +11,7 @@ The process includes downloading test videos from YouTube, splitting the videos 
 **Please see video files to see the output**
 
 In this project, I implemented a Kalman Filter using the `filterpy` library to track a drone in two video recordings. The process involved extracting frames from the videos, detecting the drone in each frame using pre-existing detections, initializing the Kalman Filter with the initial detection coordinates, and then updating it as new detections became available. The Kalman Filter was configured with parameters such as state transition matrix, measurement function, and noise covariances to optimize tracking performance. The filtered states from the Kalman Filter were used to plot the drone's 2D trajectory across frames, and these trajectories were overlaid on the original video frames for visualization. The final output included short videos where the drone's trajectory was shown as a line connecting its positions indicated by the Kalman Filter, with bounding boxes overlaid to indicate its presence in each frame. This approach enabled accurate tracking and visualization of the drone's movement across both video recordings.
+
+
+## Comment
+Note: Due to GitHub's limitations in rendering .ipynb files with complex code blocks, I have uploaded multiple formats of my code for accessibility. You can download the code in .ipynb, .py, .pdf, and .html formats to view it. Additionally, all output video files are available for download in .mp4 and .png formats. Feel free to choose the format that best suits your needs.
